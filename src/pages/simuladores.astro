@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SimuladorSCARA from '../components/SimuladorSCARA.jsx';
+import SimuladorRotacion from '../components/SimuladorRotacion.jsx';
+import SimuladorRR from '../components/SimuladorRR.jsx';
+import ConstructorDH from '../components/ConstructorDH.jsx';
+import SimuladorDelta from '../components/SimuladorDelta.jsx';
+
+const simuladores = [
+  {
+    id: 'scara',
+    nombre: 'Robot SCARA en 3D',
+    capitulo: 'Capítulo 3 · Clasificación',
+    slug: 'cap-03-clasificacion-de-los-robots',
+    descripcion:
+      'Mueve las dos articulaciones rotacionales y la prismática para ver el movimiento característico del SCARA (RRP): brazo horizontal y herramienta que baja en vertical.',
+  },
+  {
+    id: 'rotacion',
+    nombre: 'Matrices de rotación',
+    capitulo: 'Capítulo 9 · Matrices de Rotación',
+    slug: 'cap-09-matrices-de-rotacion',
+    descripcion:
+      'Gira una figura y observa cómo cada componente de la matriz R(θ) cambia con el ángulo. Conecta la fórmula con el giro real.',
+  },
+  {
+    id: 'rr',
+    nombre: 'Brazo RR interactivo',
+    capitulo: 'Capítulo 12 · Cinemática Directa',
+    slug: 'cap-12-cinematica-directa',
+    descripcion:
+      'Ajusta los ángulos y las longitudes y observa cómo cambia la posición del efector final según las ecuaciones de cinemática directa.',
+  },
+  {
+    id: 'dh',
+    nombre: 'Constructor de tablas DH',
+    capitulo: 'Capítulo 16 · Método de Denavit-Hartenberg',
+    slug: 'cap-16-el-metodo-de-denavit-hartenberg',
+    descripcion:
+      'Edita los parámetros θ, d, a y α de cada articulación. Calcula la matriz homogénea total y dibuja el brazo resultante en tiempo real.',
+  },
+  {
+    id: 'delta',
+    nombre: 'Robot Delta paralelo',
+    capitulo: 'Robot paralelo · 3 GDL',
+    slug: 'cap-03-clasificacion-de-los-robots',
+    descripcion:
+      'Mueve la plataforma en X, Y, Z y observa cómo la cinemática inversa calcula los tres ángulos de los motores. Un robot paralelo de alta velocidad usado en empaque y clasificación.',
+  },
+];
+---
+
+<BaseLayout titulo="Simuladores" descripcion="Experimenta con todos los simuladores interactivos de robótica: SCARA 3D, matrices de rotación, brazo RR, constructor de tablas Denavit-Hartenberg y robot Delta.">
+  <div class="page-wrap sim-page">
+    <header class="sim-page-header">
+      <p class="eyebrow">Laboratorio interactivo</p>
+      <h1>Simuladores</h1>
+      <p class="lede">
+        Experimenta libremente con los simuladores del manual. Ajusta parámetros, observa
+        cómo responde cada robot y conecta la intuición con las matemáticas. Cada uno enlaza
+        al capítulo donde se explica en detalle.
+      </p>
+      <nav class="sim-page-nav" aria-label="Ir a un simulador">
+        {simuladores.map((s) => (
+          <a href={`#${s.id}`}>{s.nombre}</a>
+        ))}
+      </nav>
+    </header>
+
+    <section id="scara" class="sim-seccion">
+      <div class="sim-seccion-head">
+        <div>
+          <p class="sim-seccion-cap">{simuladores[0].capitulo}</p>
+          <h2>{simuladores[0].nombre}</h2>
+          <p class="sim-seccion-desc">{simuladores[0].descripcion}</p>
+        </div>
+        <a class="btn" href={`/capitulos/${simuladores[0].slug}`}>Ver capítulo →</a>
+      </div>
+      <SimuladorSCARA client:only="react" />
+    </section>
+
+    <section id="rotacion" class="sim-seccion">
+      <div class="sim-seccion-head">
+        <div>
+          <p class="sim-seccion-cap">{simuladores[1].capitulo}</p>
+          <h2>{simuladores[1].nombre}</h2>
+          <p class="sim-seccion-desc">{simuladores[1].descripcion}</p>
+        </div>
+        <a class="btn" href={`/capitulos/${simuladores[1].slug}`}>Ver capítulo →</a>
+      </div>
+      <SimuladorRotacion client:visible />
+    </section>
+
+    <section id="rr" class="sim-seccion">
+      <div class="sim-seccion-head">
+        <div>
+          <p class="sim-seccion-cap">{simuladores[2].capitulo}</p>
+          <h2>{simuladores[2].nombre}</h2>
+          <p class="sim-seccion-desc">{simuladores[2].descripcion}</p>
+        </div>
+        <a class="btn" href={`/capitulos/${simuladores[2].slug}`}>Ver capítulo →</a>
+      </div>
+      <SimuladorRR client:visible />
+    </section>
+
+    <section id="dh" class="sim-seccion">
+      <div class="sim-seccion-head">
+        <div>
+          <p class="sim-seccion-cap">{simuladores[3].capitulo}</p>
+          <h2>{simuladores[3].nombre}</h2>
+          <p class="sim-seccion-desc">{simuladores[3].descripcion}</p>
+        </div>
+        <a class="btn" href={`/capitulos/${simuladores[3].slug}`}>Ver capítulo →</a>
+      </div>
+      <ConstructorDH client:visible />
+    </section>
+
+    <section id="delta" class="sim-seccion">
+      <div class="sim-seccion-head">
+        <div>
+          <p class="sim-seccion-cap">{simuladores[4].capitulo}</p>
+          <h2>{simuladores[4].nombre}</h2>
+          <p class="sim-seccion-desc">{simuladores[4].descripcion}</p>
+        </div>
+        <a class="btn" href={`/capitulos/${simuladores[4].slug}`}>Ver capítulo →</a>
+      </div>
+      <SimuladorDelta client:visible />
+    </section>
+  </div>
+
+  <style>
+    .sim-page { padding-top: 2.5rem; padding-bottom: 4rem; }
+    .sim-page-header { max-width: 760px; margin-bottom: 2.5rem; }
+    .sim-page-header h1 {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.2rem);
+      margin: 0.3rem 0 0.8rem;
+    }
+    .sim-page-nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .sim-page-nav a {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      padding: 0.4rem 0.85rem;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      color: var(--ink-soft);
+      text-decoration: none;
+      transition: all 0.15s ease;
+    }
+    .sim-page-nav a:hover { color: var(--accent); border-color: var(--accent); }
+
+    .sim-seccion {
+      padding-top: 2.5rem;
+      margin-top: 2.5rem;
+      border-top: 1px solid var(--line);
+      scroll-margin-top: 5rem;
+    }
+    .sim-seccion:first-of-type { border-top: none; }
+    .sim-seccion-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    .sim-seccion-head > div { max-width: 640px; }
+    .sim-seccion-cap {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--axis);
+      margin: 0;
+    }
+    .sim-seccion-head h2 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      margin: 0.2rem 0 0.5rem;
+    }
+    .sim-seccion-desc { color: var(--ink-soft); margin: 0; }
+    .sim-seccion-head .btn { flex-shrink: 0; white-space: nowrap; }
+
+    @media (max-width: 700px) {
+      .sim-seccion-head { flex-direction: column; gap: 0.85rem; }
+    }
+  </style>
+</BaseLayout>

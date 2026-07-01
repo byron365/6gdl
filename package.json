@@ -1,0 +1,29 @@
+{
+  "name": "6gdl",
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Plataforma interactiva para aprender robotica, electronica y fisica",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "node scripts/split-content.mjs && astro build",
+    "preview": "astro preview",
+    "split": "node scripts/split-content.mjs",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/mdx": "^4.0.0",
+    "@astrojs/react": "^4.0.0",
+    "astro": "^5.0.0",
+    "katex": "^0.16.11",
+    "mermaid": "^11.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "rehype-katex": "^7.0.1",
+    "remark-math": "^6.0.0",
+    "three": "^0.160.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1"
+  }
+}

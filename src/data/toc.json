@@ -1,0 +1,104 @@
+{
+  "generado": "2026-06-30T13:50:04.012Z",
+  "totalCapitulos": 16,
+  "partes": [
+    {
+      "numero": 1,
+      "titulo": "Fundamentos de la Robótica",
+      "capitulos": [
+        {
+          "numero": 1,
+          "titulo": "Introducción a la Robótica",
+          "slug": "cap-01-introduccion-a-la-robotica"
+        },
+        {
+          "numero": 2,
+          "titulo": "Historia y Evolución de la Robótica",
+          "slug": "cap-02-historia-y-evolucion-de-la-robotica"
+        },
+        {
+          "numero": 3,
+          "titulo": "Clasificación de los Robots",
+          "slug": "cap-03-clasificacion-de-los-robots"
+        },
+        {
+          "numero": 4,
+          "titulo": "Morfología del Robot",
+          "slug": "cap-04-morfologia-del-robot"
+        },
+        {
+          "numero": 5,
+          "titulo": "Grados de Libertad y Espacio de Trabajo",
+          "slug": "cap-05-grados-de-libertad-y-espacio-de-trabajo"
+        }
+      ]
+    },
+    {
+      "numero": 2,
+      "titulo": "Fundamentos Matemáticos para la Robótica",
+      "capitulos": [
+        {
+          "numero": 6,
+          "titulo": "Sistemas de Coordenadas y Marcos de Referencia",
+          "slug": "cap-06-sistemas-de-coordenadas-y-marcos-de-referencia"
+        },
+        {
+          "numero": 7,
+          "titulo": "Vectores y Álgebra Vectorial Aplicada a la Robótica",
+          "slug": "cap-07-vectores-y-algebra-vectorial-aplicada-a-la-robotica"
+        },
+        {
+          "numero": 8,
+          "titulo": "Álgebra Matricial Aplicada a la Robótica",
+          "slug": "cap-08-algebra-matricial-aplicada-a-la-robotica"
+        },
+        {
+          "numero": 9,
+          "titulo": "Matrices de Rotación",
+          "slug": "cap-09-matrices-de-rotacion"
+        },
+        {
+          "numero": 10,
+          "titulo": "Transformaciones Homogéneas",
+          "slug": "cap-10-transformaciones-homogeneas"
+        },
+        {
+          "numero": 11,
+          "titulo": "Composición de Transformaciones y Cambios de Referencia",
+          "slug": "cap-11-composicion-de-transformaciones-y-cambios-de-referencia"
+        }
+      ]
+    },
+    {
+      "numero": 3,
+      "titulo": "Cinemática de Manipuladores Robóticos",
+      "capitulos": [
+        {
+          "numero": 12,
+          "titulo": "Cinemática Directa",
+          "slug": "cap-12-cinematica-directa"
+        },
+        {
+          "numero": 13,
+          "titulo": "Tipos de Articulaciones y Grados de Libertad",
+          "slug": "cap-13-tipos-de-articulaciones-y-grados-de-libertad"
+        },
+        {
+          "numero": 14,
+          "titulo": "Espacio de Trabajo, Configuraciones y Singularidades",
+          "slug": "cap-14-espacio-de-trabajo-configuraciones-y-singularidades"
+        },
+        {
+          "numero": 15,
+          "titulo": "Asignación de Marcos de Referencia",
+          "slug": "cap-15-asignacion-de-marcos-de-referencia"
+        },
+        {
+          "numero": 16,
+          "titulo": "El Método de Denavit-Hartenberg",
+          "slug": "cap-16-el-metodo-de-denavit-hartenberg"
+        }
+      ]
+    }
+  ]
+}

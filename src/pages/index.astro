@@ -1,0 +1,310 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import toc from '../data/toc.json';
+import RoboArm3D from '../components/RoboArm3D.jsx';
+
+const totalCaps = toc.totalCapitulos;
+const totalPartes = toc.partes.length;
+---
+
+<BaseLayout titulo="Inicio">
+  <!-- HERO: blueprint de un brazo articulado, el motivo del manual -->
+  <section class="hero">
+    <div class="page-wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Manual interactivo · Robótica y cinemática</p>
+        <h1>Entiende cómo se <span class="hl">mueve</span> un robot, articulación por articulación.</h1>
+        <p class="lede">
+          Teoría clara, fórmulas que puedes leer sin abrumarte y simuladores para
+          practicar. Desde qué es un robot hasta el método de Denavit-Hartenberg.
+        </p>
+        <div class="hero-actions">
+          <a href="/temario" class="btn btn-primary">Ver el temario</a>
+          <a href={`/capitulos/${toc.partes[0].capitulos[0].slug}`} class="btn">
+            Empezar por el capítulo 1
+          </a>
+        </div>
+        <dl class="hero-stats">
+          <div><dt>{totalCaps}</dt><dd>capítulos</dd></div>
+          <div><dt>{totalPartes}</dt><dd>partes</dd></div>
+          <div><dt>RR</dt><dd>simulador en camino</dd></div>
+        </dl>
+      </div>
+
+      <!-- Brazo RR en 3D: el motivo del manual -->
+      <figure class="blueprint" aria-label="Brazo robótico de dos articulaciones en 3D">
+        <div class="arm3d-wrap">
+          <RoboArm3D client:only="react" />
+        </div>
+        <figcaption>Brazo RR de 2 GDL — el ejemplo que recorre todo el manual.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- Qué encontrarás -->
+  <section class="page-wrap features">
+    <div class="feature">
+      <span class="feature-num">01</span>
+      <h3>Teoría sin abrumar</h3>
+      <p>Cada capítulo está dividido en secciones cortas, con objetivos claros, resúmenes y conceptos clave al final.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-num">02</span>
+      <h3>Fórmulas legibles</h3>
+      <p>Las matemáticas se renderizan con tipografía técnica de verdad, no como imágenes borrosas. Lee, no descifres.</p>
+    </div>
+    <div class="feature">
+      <span class="feature-num">03</span>
+      <h3>Práctica interactiva</h3>
+      <p>Simuladores y dinámicas para experimentar con cinemática, marcos de referencia y parámetros DH. <em>Llegan por fases.</em></p>
+    </div>
+  </section>
+
+  <!-- Vista rápida del temario por partes -->
+  <section class="page-wrap simuladores-preview">
+    <div class="simuladores-head">
+      <div>
+        <p class="eyebrow">Laboratorio interactivo</p>
+        <h2>Experimenta con los simuladores</h2>
+        <p class="simuladores-sub">Cuatro herramientas para jugar con robots reales: gíralos, ajústalos y observa las matemáticas en acción. Sin teoría de por medio.</p>
+      </div>
+      <a href="/simuladores" class="btn btn-primary">Abrir laboratorio</a>
+    </div>
+    <div class="simuladores-grid">
+      <a href="/simuladores#scara" class="sim-card">
+        <span class="sim-card-tag">3D · Cap. 3</span>
+        <h3>Robot SCARA</h3>
+        <p>Mueve un robot de ensamblaje en tres dimensiones y observa su configuración RRP.</p>
+        <span class="sim-card-go">Probar →</span>
+      </a>
+      <a href="/simuladores#rotacion" class="sim-card">
+        <span class="sim-card-tag">2D · Cap. 9</span>
+        <h3>Matrices de rotación</h3>
+        <p>Gira una figura y mira cómo cambia cada componente de la matriz R(θ).</p>
+        <span class="sim-card-go">Probar →</span>
+      </a>
+      <a href="/simuladores#rr" class="sim-card">
+        <span class="sim-card-tag">2D · Cap. 12</span>
+        <h3>Brazo RR</h3>
+        <p>Ajusta ángulos y longitudes y ve la posición del efector según la cinemática directa.</p>
+        <span class="sim-card-go">Probar →</span>
+      </a>
+      <a href="/simuladores#dh" class="sim-card">
+        <span class="sim-card-tag">Cap. 16</span>
+        <h3>Constructor DH</h3>
+        <p>Edita parámetros θ, d, a, α y construye la tabla Denavit-Hartenberg de tu robot.</p>
+        <span class="sim-card-go">Probar →</span>
+      </a>
+      <a href="/simuladores#delta" class="sim-card">
+        <span class="sim-card-tag">3D · Paralelo</span>
+        <h3>Robot Delta</h3>
+        <p>Mueve la plataforma en X, Y, Z y mira la cinemática inversa de sus tres brazos.</p>
+        <span class="sim-card-go">Probar →</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="page-wrap partes-preview">
+    <p class="eyebrow">El recorrido</p>
+    <h2>Tres partes, de lo conceptual a lo matemático</h2>
+    <div class="partes-grid">
+      {toc.partes.map((parte) => (
+        <article class="parte-card">
+          <span class="parte-tag">Parte {parte.numero}</span>
+          <h3>{parte.titulo}</h3>
+          <ul>
+            {parte.capitulos.map((c) => (
+              <li><a href={`/capitulos/${c.slug}`}>{c.numero}. {c.titulo}</a></li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <style>
+    .hero { padding-top: 3rem; padding-bottom: 2rem; }
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 3rem;
+      align-items: center;
+    }
+    .hero h1 {
+      font-size: clamp(2.1rem, 4.5vw, 3.2rem);
+      line-height: 1.08;
+      margin-top: 0.75rem;
+    }
+    .hl { color: var(--accent); }
+    .lede {
+      font-size: 1.15rem;
+      color: var(--ink-soft);
+      margin-top: 1.25rem;
+      max-width: 46ch;
+    }
+    .hero-actions { display: flex; gap: 0.75rem; margin-top: 1.75rem; flex-wrap: wrap; }
+    .hero-stats {
+      display: flex;
+      gap: 2.5rem;
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--line);
+    }
+    .hero-stats div { display: flex; flex-direction: column; }
+    .hero-stats dt {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .hero-stats dd {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--ink-faint);
+    }
+
+    .blueprint {
+      background: var(--bg-elevated);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1rem;
+      box-shadow: var(--shadow);
+    }
+    .arm3d-wrap {
+      width: 100%;
+      height: 360px;
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 50% 30%, var(--accent-glow), transparent 60%),
+        var(--bg-sunken);
+    }
+    .blueprint figcaption {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-faint);
+      text-align: center;
+      margin-top: 0.75rem;
+    }
+
+    /* features */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      margin-top: 3rem;
+    }
+    .feature {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .feature-num {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--axis);
+      letter-spacing: 0.1em;
+    }
+    .feature h3 { margin-top: 0.5rem; font-size: 1.2rem; }
+    .feature p { color: var(--ink-soft); margin-top: 0.5rem; font-size: 0.98rem; }
+
+    /* partes preview */
+    .simuladores-preview { margin-top: 4.5rem; }
+    .simuladores-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+    .simuladores-head h2 { margin: 0.25rem 0 0.5rem; }
+    .simuladores-sub { color: var(--ink-soft); max-width: 560px; margin: 0; }
+    .simuladores-head .btn { flex-shrink: 0; white-space: nowrap; }
+    .simuladores-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+    }
+    .sim-card {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      padding: 1.25rem;
+      background: var(--bg-elevated);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.18s ease;
+    }
+    .sim-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+    .sim-card-tag {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--axis);
+    }
+    .sim-card h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      margin: 0;
+    }
+    .sim-card p { font-size: 0.88rem; color: var(--ink-soft); margin: 0; flex: 1; }
+    .sim-card-go {
+      font-family: var(--font-display);
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--accent);
+      margin-top: 0.3rem;
+    }
+    @media (max-width: 900px) {
+      .simuladores-grid { grid-template-columns: repeat(2, 1fr); }
+      .simuladores-head { flex-direction: column; align-items: flex-start; }
+    }
+
+    .partes-preview { margin-top: 4.5rem; }
+    .partes-preview h2 { margin-top: 0.25rem; }
+    .partes-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 2rem;
+    }
+    .parte-card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+    }
+    .parte-tag {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+    }
+    .parte-card h3 { margin: 0.4rem 0 1rem; font-size: 1.15rem; }
+    .parte-card ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+    .parte-card li a {
+      color: var(--ink-soft);
+      font-size: 0.92rem;
+      display: block;
+      padding: 0.15rem 0;
+    }
+    .parte-card li a:hover { color: var(--accent); }
+
+    @media (max-width: 880px) {
+      .hero-grid { grid-template-columns: 1fr; }
+      .blueprint { order: -1; max-width: 360px; }
+      .features, .partes-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</BaseLayout>

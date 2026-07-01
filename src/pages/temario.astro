@@ -1,0 +1,122 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProgresoTemario from '../components/ProgresoTemario.jsx';
+import toc from '../data/toc.json';
+---
+
+<BaseLayout titulo="Temario">
+  <section class="page-wrap temario">
+    <p class="eyebrow">Índice completo</p>
+    <h1>Temario</h1>
+    <p class="intro">
+      {toc.totalCapitulos} capítulos organizados en {toc.partes.length} partes.
+      Avanza en orden o salta al tema que necesites repasar.
+    </p>
+
+    <ProgresoTemario client:only="react" total={toc.totalCapitulos} />
+
+    {toc.partes.map((parte) => (
+      <section class="parte">
+        <header class="parte-head">
+          <span class="parte-num">Parte {parte.numero}</span>
+          <h2>{parte.titulo}</h2>
+        </header>
+        <ol class="cap-list">
+          {parte.capitulos.map((c) => (
+            <li>
+              <a href={`/capitulos/${c.slug}`} class="cap-row" data-slug={c.slug}>
+                <span class="cap-n">{String(c.numero).padStart(2, '0')}</span>
+                <span class="cap-t">{c.titulo}</span>
+                <span class="cap-check" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>
+                </span>
+                <span class="cap-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </section>
+    ))}
+  </section>
+
+  <style>
+    .temario { padding-top: 2.5rem; max-width: 880px; }
+    .intro { color: var(--ink-soft); font-size: 1.1rem; margin-top: 0.75rem; }
+    .parte { margin-top: 3rem; }
+    .parte-head {
+      display: flex;
+      align-items: baseline;
+      gap: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--line-strong);
+      flex-wrap: wrap;
+    }
+    .parte-num {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    .parte-head h2 { font-size: 1.5rem; }
+    .cap-list { list-style: none; padding: 0; margin-top: 0.5rem; }
+    .cap-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 0.5rem;
+      border-bottom: 1px solid var(--line);
+      color: var(--ink);
+      transition: padding 0.15s ease, background 0.15s ease;
+    }
+    .cap-row:hover {
+      background: var(--surface);
+      padding-left: 1rem;
+      color: var(--ink);
+    }
+    .cap-n {
+      font-family: var(--font-mono);
+      color: var(--axis);
+      font-size: 0.9rem;
+    }
+    .cap-t { font-family: var(--font-display); font-weight: 500; }
+    .cap-check {
+      display: none;
+      color: var(--accent);
+    }
+    .cap-row.cap-leido .cap-check { display: inline-flex; }
+    .cap-row.cap-leido .cap-n { color: var(--ink-faint); }
+    .cap-arrow { color: var(--accent); opacity: 0; transition: opacity 0.15s ease; }
+    .cap-row:hover .cap-arrow { opacity: 1; }
+
+    /* barra de progreso del temario */
+    .temario-progreso {
+      margin: 2rem 0 1rem;
+      padding: 1.25rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+    .temario-progreso-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 1rem;
+      margin-bottom: 0.6rem;
+    }
+    .temario-progreso-num { font-family: var(--font-display); font-weight: 600; color: var(--ink); }
+    .temario-progreso-pct { font-family: var(--font-mono); color: var(--accent); font-size: 1.1rem; }
+    .temario-progreso-track {
+      height: 8px;
+      background: var(--line);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .temario-progreso-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-soft));
+      transition: width 0.5s ease;
+    }
+  </style>
+</BaseLayout>

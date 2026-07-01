@@ -1,0 +1,73 @@
+---
+// Tarjeta cálida de donación (Ko-fi), pensada para el final de capítulos/secciones.
+const kofiUser = import.meta.env.PUBLIC_KOFI_USER || 'tuusuario';
+const kofiUrl = `https://ko-fi.com/${kofiUser}`;
+---
+
+<aside class="donacion-card">
+  <div class="donacion-emoji" aria-hidden="true">☕</div>
+  <div class="donacion-texto">
+    <h3>¿Te gusta el sitio? ¿Nos invitas a un café?</h3>
+    <p>
+      6 GDL es un proyecto hecho con cariño para que aprender robótica sea
+      claro y divertido, y siempre gratuito. Si te resulta útil, un pequeño aporte
+      ayuda a mantenerlo vivo y a crear más capítulos y simuladores.
+    </p>
+  </div>
+  <a href={kofiUrl} class="donacion-btn" target="_blank" rel="noopener">
+    Invítame un café ☕
+  </a>
+</aside>
+
+<style>
+  .donacion-card {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    margin: 3rem 0 1rem;
+    padding: 1.5rem 1.75rem;
+    background:
+      radial-gradient(circle at 0% 0%, var(--accent-glow), transparent 55%),
+      var(--bg-elevated);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    flex-wrap: wrap;
+  }
+  .donacion-emoji {
+    font-size: 2.5rem;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .donacion-texto { flex: 1; min-width: 240px; }
+  .donacion-texto h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    margin: 0 0 0.4rem;
+  }
+  .donacion-texto p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 0.92rem;
+    line-height: 1.5;
+  }
+  .donacion-btn {
+    flex-shrink: 0;
+    display: inline-block;
+    padding: 0.7rem 1.4rem;
+    background: var(--accent);
+    color: #1a1205;
+    font-family: var(--font-display);
+    font-weight: 600;
+    border-radius: 999px;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    white-space: nowrap;
+  }
+  .donacion-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px -6px var(--accent);
+  }
+  @media (max-width: 560px) {
+    .donacion-card { flex-direction: column; text-align: center; }
+  }
+</style>
